@@ -1,0 +1,10 @@
+﻿@using (Html.BeginForm("Edit", "Words", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <br />
+    <label for="user">User :</label>
+    <input type="text" id="user" name="user">
+    <label for="pass">Password:</label>
+    <input type="password" id="pass" name="pass">
+    <input type="submit" value="Submit">
+}
