@@ -62,14 +62,7 @@ namespace ReactMvc.Controllers
         {
             return View();
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(string user, string pass)
-        {
-            if (user == "nhaen" && pass == "Gi@l@i2020")
-                Session["Edit"] = "Yes";
-            return View("Index");
-        }
+
 
         // GET: Words/Edit/5
         //public async Task<ActionResult> Edit(int? id)
