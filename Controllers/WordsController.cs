@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ReactMvc.Models;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 
 namespace ReactMvc.Controllers
 {
@@ -16,9 +18,16 @@ namespace ReactMvc.Controllers
         private DictionaryEntities db = new DictionaryEntities();
 
         // GET: Words
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await db.Words.ToListAsync());
+           // return View(await db.Words.ToListAsync());
+            return View();
+        }
+
+        public async Task<ActionResult> Words_Read([DataSourceRequest]DataSourceRequest request)
+        {
+            var words = (await db.Words.ToListAsync()).OrderByDescending(w => w.Id);
+            return Json(words.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
         // GET: Words/Details/5
@@ -62,7 +71,13 @@ namespace ReactMvc.Controllers
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(string user, string pass)
+        {
 
+            return View("Index");
+        }
 
         // GET: Words/Edit/5
         //public async Task<ActionResult> Edit(int? id)
