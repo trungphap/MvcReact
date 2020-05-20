@@ -5,19 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @*@Scripts.Render("~/bundles/modernizr")*@
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @*@Scripts.Render("~/bundles/bootstrap")*@
 
-    <script crossorigin src="~/Scripts/react.js"></script>
+    @*<script crossorigin src="~/Scripts/react.js"></script>
     <script crossorigin src="~/Scripts/react-dom.js"></script>
     <script crossorigin src="~/Scripts/material-ui.min.js"></script>
-    <script crossorigin src="~/Scripts/browser.min.js"></script>
-    <!-- Fonts to support Material Design -->
+    <script crossorigin src="~/Scripts/browser.min.js"></script>*@
+     @*Fonts to support Material Design 
     <link rel="stylesheet" href="~/Content/materiel-font.css" />
-    <!-- Icons to support Material Design -->
-    <link rel="stylesheet" href="~/Content/materiel-icon.css" />
+     Icons to support Material Design 
+    <link rel="stylesheet" href="~/Content/materiel-icon.css" />*@
+    <link rel="stylesheet" href="~/Content/kendo/2020.1.406/kendo.common.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/2020.1.406/kendo.default.min.css" />
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/kendo.all.min.js"></script>
+    <script src="~/Scripts/kendo.aspnetmvc.min.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
