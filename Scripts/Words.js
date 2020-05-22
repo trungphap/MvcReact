@@ -112,7 +112,7 @@ class WordForm extends React.Component {
                     <input className="form-control text-dark col-md-4" type="text" placeholder="Mot français" value={this.state.french} onChange={this.handleFrenchChange} />       
                     <input className="form-control col-md-4 text-danger" type="text" placeholder="Mot vietnamien" value={this.state.vietnam} onChange={this.handleVietnamChange} />
                     <input className="form-control col-md-2 text-success" type="text" placeholder="Type" value={this.state.type} onChange={this.handleTypeChange} />
-                    <input className="btn btn-primary col-md-1" type="submit" value="Ạouter" />
+                    <input className="btn btn-primary col-md-1" type="submit" value="Ạjouter" />
                 </form>
             </div>
         );
