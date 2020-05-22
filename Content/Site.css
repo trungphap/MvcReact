@@ -22,3 +22,6 @@ select,
 textarea {
     max-width: 280px;
 }
+.wordform{
+    margin-left:2px;
+}
