@@ -1,10 +1,22 @@
-﻿@using (Html.BeginForm("Edit", "Words", FormMethod.Post))
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+@using (Html.BeginForm("Edit", "Words", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <br />
-    <label for="user">User :</label>
-    <input type="text" id="user" name="user">
-    <label for="pass">Password:</label>
-    <input type="password" id="pass" name="pass">
-    <input type="submit" value="Submit">
+    <div class="row">
+        <label for="user" class="text-right" style="width:70px">User: </label>
+        <input type="text" id="user" name="user" >
+    </div>
+    <div class="row">
+        <br />
+        <label for="pass" class="text-right" style="width:70px">Password:</label>
+        <input type="password" id="pass" name="pass">
+    </div>
+    <div class="row">
+        <br />
+        <input type="submit" value="Login" style="margin-left:74px">
+    </div>
 }

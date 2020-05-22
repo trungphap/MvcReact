@@ -22,8 +22,8 @@ namespace ReactMvc.Controllers
         public async Task<ActionResult> Words()
         {
             var words = await db.Words.ToListAsync();
-            //return Json(words.OrderByDescending(w=>w.Id).Take(20), JsonRequestBehavior.AllowGet);
-            return Json(words.OrderByDescending(w=>w.Id), JsonRequestBehavior.AllowGet);
+            return Json(words.OrderByDescending(w=>w.Id).Take(10), JsonRequestBehavior.AllowGet);
+            //return Json(words.OrderByDescending(w=>w.Id), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

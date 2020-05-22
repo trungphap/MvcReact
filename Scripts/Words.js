@@ -36,7 +36,7 @@
             <div className="WordBox">
                 <WordForm onWordSubmit={this.handleWordSubmit} />
                 <WorldTitle />
-                <WordList data={this.state.data} />                
+                <WordList data={this.state.data} />    
             </div>
         );
     }
@@ -47,8 +47,8 @@ class WorldTitle extends React.Component {
         return (
             <h4 className="row text-left  font-weight-bold">
                 <div className="col-sm-5 text-dark">Français</div>
-                <div className="col-sm-6 text-danger">Tiếng Việt</div>
-                <div className="col-sm-1 text-success">Loại từ</div>
+                <div className="col-sm-6 text-danger">Vietnamien</div>
+                <div className="col-sm-1 text-success">Type</div>
             </h4>
         );
     }
@@ -107,12 +107,12 @@ class WordForm extends React.Component {
     }
     render() {
         return (
-            <div className="row">
+            <div className="row wordform">
                 <form className="WordForm" onSubmit={this.handleSubmit}>
-                    <input className="form-control text-dark col-md-4" type="text" placeholder="Nhập từ tiếng pháp" value={this.state.french} onChange={this.handleFrenchChange} />       
-                    <input className="form-control col-md-4 text-danger" type="text" placeholder="Nhập từ tiếng việt" value={this.state.vietnam} onChange={this.handleVietnamChange} />
-                    <input className="form-control col-md-2 text-success" type="text" placeholder="Loại từ" value={this.state.type} onChange={this.handleTypeChange} />
-                    <input className="btn btn-primary col-md-1" type="submit" value="Thêm" />
+                    <input className="form-control text-dark col-md-4" type="text" placeholder="Mot français" value={this.state.french} onChange={this.handleFrenchChange} />       
+                    <input className="form-control col-md-4 text-danger" type="text" placeholder="Mot vietnamien" value={this.state.vietnam} onChange={this.handleVietnamChange} />
+                    <input className="form-control col-md-2 text-success" type="text" placeholder="Type" value={this.state.type} onChange={this.handleTypeChange} />
+                    <input className="btn btn-primary col-md-1" type="submit" value="Ạouter" />
                 </form>
             </div>
         );

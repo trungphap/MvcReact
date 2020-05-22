@@ -1,11 +1,10 @@
-﻿@model IEnumerable<ReactMvc.Models.Word>
-@using Kendo.Mvc
-@using Kendo.Mvc.UI
+﻿@using Kendo.Mvc.UI
 
 
 @{
     ViewBag.Title = "Edit";
     var edit = Session["Edit"] as string;
+    var displayExcel = (edit == "Yes") ? "" : "display:none";
 }
 
 <div class="text-left">
@@ -29,8 +28,16 @@
         }
 
     })
-    .Pageable()
+    .Pageable()    
+    .ToolBar(tools => tools.Excel().Text("Excel").HtmlAttributes(new { style=displayExcel}))
+    .ToolBar(t => t.Search())
     .Filterable()
+    .Excel(excel => excel
+        .AllPages(true)
+        .FileName("DictionaryExport.xlsx")
+        .Filterable(true)
+        .ProxyURL(Url.Action("Excel_Export_Save", "Words"))
+    )
     .DataSource(dataSource => dataSource
     .Ajax()
     .Model(m =>{    m.Id(p => p.Id);})
@@ -76,4 +83,8 @@
             display: inline-grid;
             padding: 0;
         }
+
+    .k-grid .k-header .k-grid-search {
+        width: 150px;
+    }
 </style>
