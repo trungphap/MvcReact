@@ -29,7 +29,18 @@ namespace ReactMvc.Controllers
             var words = (await db.Words.ToListAsync()).OrderByDescending(w => w.Id);
             return Json(words.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public async Task<ActionResult> Words_Update([DataSourceRequest] DataSourceRequest request, Word word)
+        {
+            if (word != null && ModelState.IsValid)
+            {
+                word.ModifiedOn = DateTime.Now;
+                db.Entry(word).State = EntityState.Modified;
+                await db.SaveChangesAsync();                
+            }          
 
+            return Json(new[] { word }.ToDataSourceResult(request, ModelState));
+        }
         // GET: Words/Details/5
         //public async Task<ActionResult> Details(int? id)
         //{
