@@ -33,10 +33,14 @@
     }
     render() {
         return (
-            <div className="WordBox">
+            <div className="wordbox">
+                <br />
                 <WordForm onWordSubmit={this.handleWordSubmit} />
-                <WorldTitle />
-                <WordList data={this.state.data} />    
+                <br />
+                <div className="container-fluid wordgrid">
+                    <WorldTitle />
+                    <WordList data={this.state.data} />
+                </div>
             </div>
         );
     }
@@ -45,11 +49,11 @@
 class WorldTitle extends React.Component {
     render() {
         return (
-            <h4 className="row text-left  font-weight-bold">
-                <div className="col-sm-5 text-dark">Français</div>
-                <div className="col-sm-6 text-danger">Vietnamien</div>
-                <div className="col-sm-1 text-success">Type</div>
-            </h4>
+            <div className="row text-left wordtitle">
+                <div class="col-sm-5 col-xs-4 font-weight-bold text-dark">Français</div>
+                <div class="col-sm-5 col-xs-5 text-danger">Vietnamien</div>
+                <div class="col-sm-1 col-xs-1 text-success">Type</div>                
+            </div>
         );
     }
 }
@@ -58,10 +62,10 @@ class WorldTitle extends React.Component {
 class Word extends React.Component {
     render() {
         return (
-            <div className="row text-left">
-                <div className="col-sm-5 text-dark font-weight-bold">{this.props.french}</div>
-                <div className="col-sm-6 text-danger">{this.props.vietnam}</div>
-                <div className="col-sm-1 text-success">{this.props.type}</div>
+            <div className="row text-left word">
+                <div className="col-sm-5 col-xs-4 text-dark font-weight-bold">{this.props.french}</div>
+                <div className="col-sm-5 col-xs-5 text-danger">{this.props.vietnam}</div>
+                <div className="col-sm-1 col-xs-1 text-success">{this.props.type}</div>
             </div>
         );
     }
@@ -109,10 +113,10 @@ class WordForm extends React.Component {
         return (
             <div className="row wordform">
                 <form className="WordForm" onSubmit={this.handleSubmit}>
-                    <input className="form-control text-dark col-md-4" type="text" placeholder="Mot français" value={this.state.french} onChange={this.handleFrenchChange} />       
-                    <input className="form-control col-md-4 text-danger" type="text" placeholder="Mot vietnamien" value={this.state.vietnam} onChange={this.handleVietnamChange} />
-                    <input className="form-control col-md-2 text-success" type="text" placeholder="Type" value={this.state.type} onChange={this.handleTypeChange} />
-                    <input className="btn btn-primary col-md-1" type="submit" value="Ạjouter" />
+                    <input className="col-lg-5 col-sm-5 col-xs-3 text-dark input-sm rounded" type="text" placeholder="Français" value={this.state.french} onChange={this.handleFrenchChange} />
+                    <input className="col-lg-5 col-sm-5 col-xs-3 text-danger input-sm" type="text" placeholder="Vietnamien" value={this.state.vietnam} onChange={this.handleVietnamChange} />
+                    <input className="col-lg-1 col-sm-1 col-xs-2 text-success input-sm" type="text" placeholder="Type" value={this.state.type} onChange={this.handleTypeChange} />
+                    <input className="btn btn-info btn-sm col-lg-1 col-sm-1 col-xs-2" type="submit" value="Ạjouter" />
                 </form>
             </div>
         );
