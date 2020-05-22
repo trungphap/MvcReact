@@ -113,10 +113,10 @@ class WordForm extends React.Component {
         return (
             <div className="row wordform">
                 <form className="WordForm" onSubmit={this.handleSubmit}>
-                    <input className="col-lg-5 col-sm-5 col-xs-3 text-dark input-sm rounded" type="text" placeholder="Français" value={this.state.french} onChange={this.handleFrenchChange} />
-                    <input className="col-lg-5 col-sm-5 col-xs-3 text-danger input-sm" type="text" placeholder="Vietnamien" value={this.state.vietnam} onChange={this.handleVietnamChange} />
-                    <input className="col-lg-1 col-sm-1 col-xs-2 text-success input-sm" type="text" placeholder="Type" value={this.state.type} onChange={this.handleTypeChange} />
-                    <input className="btn btn-info btn-sm col-lg-1 col-sm-1 col-xs-2" type="submit" value="Ạjouter" />
+                    <input className="col-lg-5 col-md-5 col-sm-5 col-xs-3 text-dark input-sm rounded" type="text" placeholder="Français" value={this.state.french} onChange={this.handleFrenchChange} />
+                    <input className="col-lg-6 col-md-6 col-sm-6 col-xs-4 text-danger input-sm" type="text" placeholder="Vietnamien" value={this.state.vietnam} onChange={this.handleVietnamChange} />
+                    <input className="col-lg-1 col-md-1 col-sm-1 col-sm-1 col-xs-2 text-success input-sm" type="text" placeholder="Type" value={this.state.type} onChange={this.handleTypeChange} />
+                    <input className="btn btn-info btn-sm col-lg-1 col-md-1 col-sm-1 col-xs-2" type="submit" value="Ạjouter" />
                 </form>
             </div>
         );
