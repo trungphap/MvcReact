@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Home";
     var edit = Session["Edit"] as string;
+    var user = Session["User"] as string;
     var displayExcel = (edit == "Yes") ? "" : "display:none";
 }
 
@@ -16,6 +17,10 @@
         columns.Bound(c => c.French).Width(400).Filterable(false);
         columns.Bound(c => c.Vietnam).Width(400).Filterable(false);
         columns.Bound(c => c.Type).Width(100).Filterable(ftb => ftb.Multi(true).Search(true));
+        if (user=="nhaen" || user == "admin")
+        {
+            columns.Bound(c => c.owner).Width(100).Filterable(ftb => ftb.Multi(true).Search(true));
+        }
         if (edit == "Yes")
         {
             columns.Command(command =>
@@ -28,7 +33,7 @@
         }
 
     })
-    .Pageable()    
+    .Pageable()
     .ToolBar(tools => tools.Excel().Text("Excel").HtmlAttributes(new { style=displayExcel}))
     .ToolBar(t => t.Search())
     .Filterable()

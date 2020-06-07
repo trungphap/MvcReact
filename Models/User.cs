@@ -11,17 +11,12 @@ namespace ReactMvc.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Word
+    
+    public partial class User
     {
+        public string Email { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
         public int Id { get; set; }
-        public string French { get; set; }
-        public string Vietnam { get; set; }
-        public string Type { get; set; }
-        public Nullable<System.DateTime> CreatedOn { get; set; }
-        public Nullable<System.DateTime> ModifiedOn { get; set; }
-        [Display(Name = "Owner")]
-        public string owner { get; set; }
     }
 }

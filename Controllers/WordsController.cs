@@ -20,13 +20,24 @@ namespace ReactMvc.Controllers
         // GET: Words
         public ActionResult Index()
         {
-           // return View(await db.Words.ToListAsync());
+            
             return View();
         }
 
         public async Task<ActionResult> Words_Read([DataSourceRequest]DataSourceRequest request)
         {
-            var words = (await db.Words.ToListAsync()).OrderByDescending(w => w.Id);
+            var user = Session["User"] as string;
+            var words = await db.Words.OrderByDescending(w => w.Id).ToListAsync();
+            if (string.IsNullOrEmpty(user) || string.IsNullOrWhiteSpace(user))
+            {
+                words=words.Take(10).ToList();
+                Session["Edit"] = string.Empty;
+            }
+            else if(user !="admin" && user != "nhaen")
+            {
+                words = words.Where(w => w.owner == user).OrderByDescending(w => w.Id).ToList();
+            }            
+
             return Json(words.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
@@ -84,9 +95,13 @@ namespace ReactMvc.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(string user, string pass)
-        {
+        
 
+        public ActionResult Deconnecter(string user, string pass)
+        {
+            Session["Edit"] = string.Empty;
+            Session["User"] = string.Empty;
+            Session["NbInscrit"] = string.Empty;
             return View("Index");
         }
 
@@ -105,47 +120,47 @@ namespace ReactMvc.Controllers
         //    return View(word);
         //}
 
-        // POST: Words/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Edit([Bind(Include = "Id,French,Vietnam,Type,CreatedOn,CreatedBy,ModifiedOn,ModifiedBy")] Word word)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(word).State = EntityState.Modified;
-        //        await db.SaveChangesAsync();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(word);
-        //}
+            // POST: Words/Edit/5
+            // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+            // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+            //[HttpPost]
+            //[ValidateAntiForgeryToken]
+            //public async Task<ActionResult> Edit([Bind(Include = "Id,French,Vietnam,Type,CreatedOn,CreatedBy,ModifiedOn,ModifiedBy")] Word word)
+            //{
+            //    if (ModelState.IsValid)
+            //    {
+            //        db.Entry(word).State = EntityState.Modified;
+            //        await db.SaveChangesAsync();
+            //        return RedirectToAction("Index");
+            //    }
+            //    return View(word);
+            //}
 
-        // GET: Words/Delete/5
-        //public async Task<ActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Word word = await db.Words.FindAsync(id);
-        //    if (word == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(word);
-        //}
+            // GET: Words/Delete/5
+            //public async Task<ActionResult> Delete(int? id)
+            //{
+            //    if (id == null)
+            //    {
+            //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //    }
+            //    Word word = await db.Words.FindAsync(id);
+            //    if (word == null)
+            //    {
+            //        return HttpNotFound();
+            //    }
+            //    return View(word);
+            //}
 
-        //// POST: Words/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> DeleteConfirmed(int id)
-        //{
-        //    Word word = await db.Words.FindAsync(id);
-        //    db.Words.Remove(word);
-        //    await db.SaveChangesAsync();
-        //    return RedirectToAction("Index");
-        //}
+            //// POST: Words/Delete/5
+            //[HttpPost, ActionName("Delete")]
+            //[ValidateAntiForgeryToken]
+            //public async Task<ActionResult> DeleteConfirmed(int id)
+            //{
+            //    Word word = await db.Words.FindAsync(id);
+            //    db.Words.Remove(word);
+            //    await db.SaveChangesAsync();
+            //    return RedirectToAction("Index");
+            //}
 
         protected override void Dispose(bool disposing)
         {

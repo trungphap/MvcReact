@@ -21,7 +21,8 @@ namespace ReactMvc.Controllers
         [OutputCache(Location = OutputCacheLocation.None)]
         public async Task<ActionResult> Words()
         {
-            var words = await db.Words.ToListAsync();
+            var user = Session["User"] as string;
+            var words = await db.Words.Where(w => w.owner == user).ToListAsync();
             return Json(words.OrderByDescending(w=>w.Id).Take(10), JsonRequestBehavior.AllowGet);
             //return Json(words.OrderByDescending(w=>w.Id), JsonRequestBehavior.AllowGet);
         }
@@ -30,6 +31,7 @@ namespace ReactMvc.Controllers
         public async Task<ActionResult> Create([Bind(Include = "French,Vietnam,Type")] Word word)
         {
             word.CreatedOn = DateTime.Now;
+            word.owner = Session["User"] as string;
             //var user = User.Identity.Name;
             //word.CreatedBy = user.Substring(Math.Max(0, user.Length - 10), Math.Min(10, user.Length - 1));
             db.Words.Add(word);

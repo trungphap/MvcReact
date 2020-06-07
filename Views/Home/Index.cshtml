@@ -1,12 +1,16 @@
 ﻿@{
     ViewBag.Title = "Add";
+    var user = Session["User"] as string;
 }
 
-
+@if (user != null && user.Length > 2)
+{
     <div id="content"></div>
-    <script crossorigin src="~/Scripts/react.js"></script>
-    <script crossorigin src="~/Scripts/react-dom.js"></script>
-    <script crossorigin src="~/Scripts/browser.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
     <script src="~/Scripts/Words.js" type="text/babel">
     </script>
+}
+
 

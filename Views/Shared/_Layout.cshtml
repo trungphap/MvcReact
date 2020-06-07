@@ -1,23 +1,29 @@
 ﻿<!DOCTYPE html>
+@{ 
+    var user = Session["User"] as string;
+    var nbInscrit = Session["NbInscrit"] as int?;
+}
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-    @*@Scripts.Render("~/bundles/modernizr")*@
-    <script src="~/Scripts/kendo/2020.1.406/jquery.min.js"></script>
+   
+    <script src="https://kendo.cdn.telerik.com/2020.1.406/js/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
     @*@Scripts.Render("~/bundles/jquery")*@
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
 
-    <link rel="stylesheet" href="~/Content/kendo/2020.1.406/kendo.common.min.css" />
-    <link rel="stylesheet" href="~/Content/kendo/2020.1.406/kendo.default.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2020.1.406/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2020.1.406/styles/kendo.default.min.css" />
 
 
 
-    <script src="~/Scripts/kendo/2020.1.406/jszip.min.js"></script>
-    <script src="~/Scripts/kendo/2020.1.406/kendo.all.min.js"></script>
-    <script src="~/Scripts/kendo/2020.1.406/kendo.aspnetmvc.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.1.406/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.1.406/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.1.406/js/kendo.aspnetmvc.min.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -32,16 +38,34 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Se connecter", "Edit", "Words")</li>
-                    <li>@Html.ActionLink("Ạjouter", "Index", "Home")</li>
-                </ul>                
+
+                    @if (user != null && user.Length > 0)
+                    {
+                        <li>@Html.ActionLink("Ajouter", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Se déconnecter", "Deconnecter", "Words")</li>
+
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Se connecter", "Edit", "Words")</li>
+                        <li>@Html.ActionLink("S'inscrire", "Inscrire", "Users")</li>
+                    }
+                </ul>
+                @if (user != null && user.Length > 0)
+                {
+                    <span class="nav navbar-text navbar-right">Bonjour @user! </span>
+                }
             </div>
         </div>
     </div>
     <div style="width:99%; margin:0 auto;">
         @RenderBody()
     </div>
-
+    @if (user != null && (user=="nhaen" || user=="admin"))
+    {
+        <br/>
+        <footer style="margin-left:5px;font-size:10px"> Nombre de personnes inscrites jusqu'au @DateTime.Now.ToString("dd/MM/yyyy") : @nbInscrit </footer>
+    }
 
     @RenderSection("scripts", required: false)
 </body>

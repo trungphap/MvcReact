@@ -12,12 +12,6 @@ namespace ReactMvc
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-           // routes.MapRoute(
-           //    name: "Words",
-           //    url: "word",
-           //    defaults: new { controller = "Home", action = "Words" }
-           //);
-
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

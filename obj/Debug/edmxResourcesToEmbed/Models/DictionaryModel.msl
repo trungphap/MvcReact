@@ -1,19 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="DictionaryModelStoreContainer" CdmEntityContainer="DictionaryEntities">
-    <EntitySetMapping Name="Words">
-      <EntityTypeMapping TypeName="DictionaryModel.Word">
-        <MappingFragment StoreEntitySet="Words">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="French" ColumnName="French" />
-          <ScalarProperty Name="Vietnam" ColumnName="Vietnam" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-  </EntityContainerMapping>
+  <EntityContainerMapping StorageEntityContainer="DictionaryModelStoreContainer" CdmEntityContainer="DictionaryEntities" />
 </Mapping>
