@@ -11,8 +11,7 @@ namespace ReactMvc.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Word
     {
         public int Id { get; set; }
@@ -21,7 +20,10 @@ namespace ReactMvc.Models
         public string Type { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-        [Display(Name = "Owner")]
         public string owner { get; set; }
+        public Nullable<int> NumberRead { get; set; }
+        public string Prononciation { get; set; }
+        public string Exemple { get; set; }
+
     }
 }

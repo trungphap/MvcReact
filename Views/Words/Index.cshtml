@@ -6,6 +6,7 @@
     var edit = Session["Edit"] as string;
     var user = Session["User"] as string;
     var displayExcel = (edit == "Yes") ? "" : "display:none";
+    var displayAdmin = (user == "nhaen" || user == "admin");
 }
 
 <div class="text-left">
@@ -14,13 +15,17 @@
     .Name("grid")
     .Columns(columns =>
     {
-        columns.Bound(c => c.French).Width(400).Filterable(false);
-        columns.Bound(c => c.Vietnam).Width(400).Filterable(false);
+        columns.Bound(c => c.French).Filterable(false);
+        columns.Bound(c => c.Vietnam).Filterable(false);
+
         columns.Bound(c => c.Type).Width(100).Filterable(ftb => ftb.Multi(true).Search(true));
-        if (user=="nhaen" || user == "admin")
+        if (displayAdmin)
         {
-            columns.Bound(c => c.owner).Width(100).Filterable(ftb => ftb.Multi(true).Search(true));
+            columns.Bound(c => c.Number).Title("N°").Width(10).Filterable(ftb => ftb.Multi(true).Search(true));
+            columns.Bound(c => c.owner).Width(70).Title("Owner").Filterable(ftb => ftb.Multi(true).Search(true));
+
         }
+
         if (edit == "Yes")
         {
             columns.Command(command =>
@@ -35,13 +40,19 @@
     })
     .Pageable()
     .ToolBar(tools => tools.Excel().Text("Excel").HtmlAttributes(new { style=displayExcel}))
+    .ToolBar(toolBar =>
+    {
+
+        toolBar.Custom().Name("Cacher").Text("French").Url("#").HtmlAttributes(new { onclick = "onCacher()",id="Cacher" });
+
+    })
     .ToolBar(t => t.Search())
     .Filterable()
     .Excel(excel => excel
-        .AllPages(true)
-        .FileName("DictionaryExport.xlsx")
-        .Filterable(true)
-        .ProxyURL(Url.Action("Excel_Export_Save", "Words"))
+    .AllPages(true)
+    .FileName("DictionaryExport.xlsx")
+    .Filterable(true)
+    .ProxyURL(Url.Action("Excel_Export_Save", "Words"))
     )
     .DataSource(dataSource => dataSource
     .Ajax()
@@ -93,3 +104,27 @@
         width: 200px;
     }
 </style>
+<div id="iteration" name="iteration" hidden="hidden">0</div>
+<script type="text/javascript">
+    function onCacher() {
+        var iter = $("#iteration");
+        var btnCacher = $("#Cacher");
+        var i = iter.val() % 3;
+        var grid = $("#grid").data("kendoGrid");
+        if (i == 0) {
+            grid.hideColumn("Vietnam");
+            grid.showColumn("French");
+            btnCacher.html("Viet");
+        } else if (i == 1) {
+            btnCacher.html("Both");
+            grid.hideColumn("French");
+            grid.showColumn("Vietnam");
+        } else {
+            grid.showColumn("Vietnam");
+            grid.showColumn("French");
+            btnCacher.html("French");
+        }
+        iter.html(i + 1);
+        iter.val(i + 1);
+    }
+</script>

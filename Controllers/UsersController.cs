@@ -13,7 +13,7 @@ namespace ReactMvc.Controllers
 {
     public class UsersController : Controller
     {
-        private DictionaryEntities db = new DictionaryEntities();
+        private Entities db = new Entities();
 
         // GET: Users/Create
         public ActionResult Inscrire()

@@ -12,7 +12,7 @@ namespace ReactMvc.Controllers
 {
     public class HomeController : Controller
     {
-        private DictionaryEntities db = new DictionaryEntities();
+        private Entities db = new Entities();
         public ActionResult Index()
         {
             return View();

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DictionaryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DictionaryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Id" />
@@ -25,13 +25,15 @@
           <Property Name="CreatedOn" Type="date" />
           <Property Name="ModifiedOn" Type="date" />
           <Property Name="owner" Type="nvarchar" MaxLength="30" />
+          <Property Name="NumberRead" Type="int" />
+          <Property Name="Prononciation" Type="nvarchar" MaxLength="100" />
+          <Property Name="Exemple" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityContainer Name="DictionaryModelStoreContainer">
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Words" EntityType="Self.Words" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DictionaryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -55,6 +57,9 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="0" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
           <Property Name="owner" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="NumberRead" Type="Int32" />
+          <Property Name="Prononciation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Exemple" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -79,6 +84,9 @@
           <EntitySetMapping Name="Words">
             <EntityTypeMapping TypeName="DictionaryModel.Word">
               <MappingFragment StoreEntitySet="Words">
+                <ScalarProperty Name="Exemple" ColumnName="Exemple" />
+                <ScalarProperty Name="Prononciation" ColumnName="Prononciation" />
+                <ScalarProperty Name="NumberRead" ColumnName="NumberRead" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="French" ColumnName="French" />
                 <ScalarProperty Name="Vietnam" ColumnName="Vietnam" />

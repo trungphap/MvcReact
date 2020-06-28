@@ -13,10 +13,10 @@ namespace ReactMvc.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DictionaryEntities : DbContext
+    public partial class Entities : DbContext
     {
-        public DictionaryEntities()
-            : base("name=DictionaryEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     
