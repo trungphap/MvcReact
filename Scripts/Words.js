@@ -1,7 +1,7 @@
 ﻿class WordBox extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { data: [] };
+        this.state = { data: [] ,types : []};
         this.handleWordSubmit = this.handleWordSubmit.bind(this);
     }
     loadCommentsFromServer() {
@@ -13,12 +13,16 @@
         };
         xhr.send();
     }
+
+    
     componentDidMount() {
-        this.loadCommentsFromServer();
+        this.loadCommentsFromServer();      
         window.setInterval(
             () => this.loadCommentsFromServer(),
             this.props.pollInterval,
+         
         );
+       
     }
     handleWordSubmit(word) {
         const data = new FormData();
@@ -50,9 +54,9 @@ class WorldTitle extends React.Component {
     render() {
         return (
             <div className="row text-left wordtitle">
-                <div class="col-sm-5 col-xs-4 font-weight-bold text-dark">Français</div>
-                <div class="col-sm-5 col-xs-5 text-danger">Vietnamien</div>
-                <div class="col-sm-1 col-xs-1 text-success">Type</div>                
+                <div className="col-sm-5 col-xs-4 font-weight-bold text-dark">Français</div>
+                <div className="col-sm-5 col-xs-5 text-danger">Vietnamien</div>
+                <div className="col-sm-1 col-xs-1 text-success">Type</div>                
             </div>
         );
     }
@@ -60,12 +64,12 @@ class WorldTitle extends React.Component {
 
 
 class Word extends React.Component {
-    render() {
+    render() {        
         return (
             <div className="row text-left word">
                 <div className="col-sm-5 col-xs-4 text-dark font-weight-bold">{this.props.french}</div>
                 <div className="col-sm-5 col-xs-5 text-danger">{this.props.vietnam}</div>
-                <div className="col-sm-1 col-xs-1 text-success">{this.props.type}</div>
+                <div className="col-sm-1 col-xs-1 text-success">{this.props.type}</div> 
             </div>
         );
     }
@@ -83,12 +87,22 @@ class WordList extends React.Component {
 class WordForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { french: '', vietnam: '', type: '' };
+        this.state = { french: '', vietnam: '', type: '',types:[] };
         this.handleFrenchChange = this.handleFrenchChange.bind(this);
         this.handleVietnamChange = this.handleVietnamChange.bind(this);
         this.handleTypeChange = this.handleTypeChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+    loadTypesFromServer() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('get', '/api/WordsNg/GetTypes', true);
+        xhr.onload = () => {
+            const data = JSON.parse(xhr.responseText);
+            this.setState({ types: data });
+        };
+        xhr.send();
+    }
+
     handleFrenchChange(e) {
         this.setState({ french: e.target.value });
     }
@@ -107,17 +121,31 @@ class WordForm extends React.Component {
             return;
         }
         this.props.onWordSubmit({ french: french, vietnam: vietnam, type: type });
-        this.setState({ french: '', vietnam: '', type: '' });
+        this.setState({ french: '', vietnam: '', type: ''});
+    }
+
+    componentDidMount() {
+        this.loadTypesFromServer();
     }
     render() {
+        //console.log(this.state.types);
         return (
             <div className="row wordform">
                 <form className="WordForm" onSubmit={this.handleSubmit}>
                     <input className="col-lg-5 col-md-5 col-sm-5 col-xs-3 text-dark input-sm rounded" type="text" placeholder="Français" value={this.state.french} onChange={this.handleFrenchChange} />
                     <input className="col-lg-6 col-md-6 col-sm-6 col-xs-4 text-danger input-sm" type="text" placeholder="Vietnamien" value={this.state.vietnam} onChange={this.handleVietnamChange} />
-                    <input className="col-lg-1 col-md-1 col-sm-1 col-sm-1 col-xs-2 text-success input-sm" type="text" placeholder="Type" value={this.state.type} onChange={this.handleTypeChange} />
+                    
+                    <select className="col-lg-1 col-md-1 col-sm-1 col-sm-1 col-xs-2 text-success input-sm" ng-if="!this.state.types" value={this.state.type} onChange={this.handleTypeChange}>
+                        <option>-Select type-</option>
+                        {
+                            this.state.types &&
+                            this.state.types.map((h) =>
+                                (<option key={h} value={h}>{h}</option>))
+                        }
+                    </select>
                     <input className="btn btn-info btn-sm col-lg-1 col-md-1 col-sm-1 col-xs-2" type="submit" value="Ạjouter" />
                 </form>
+                
             </div>
         );
     }

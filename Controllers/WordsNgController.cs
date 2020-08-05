@@ -25,6 +25,13 @@ namespace ReactMvc.Controllers
             return db.Words.OrderByDescending(x => x.Id);         
         }
 
+        [HttpGet]
+        [Route("GetTypes")]
+        // GET: api/WordsNg
+        public IQueryable<string> GetTypes()
+        {
+            return db.Words.Select(x => x.Type).Distinct();
+        }
         // GET: api/WordsNg/5
         [HttpGet]
         [Route("GetWord/{id}")]
